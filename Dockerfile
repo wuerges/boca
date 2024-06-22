@@ -19,5 +19,9 @@ WORKDIR /boca
 
 COPY . .
 
+# Adds permission to read/write to the score tmp folder
+RUN mkdir -p /var/www/boca/src/private/scoretmp
+RUN chmod 777 /var/www/boca/src/private/scoretmp
+
 # Runs boca make install
 RUN make install
