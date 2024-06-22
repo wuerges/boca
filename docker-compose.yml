@@ -1,18 +1,29 @@
 services:
   boca-init-db:
+    image: wuerges/boca
     depends_on:
       - postgres
     build:
+      dockerfile: boca.Dockerfile
       context: .
     command: php src/private/createdb.php
     profiles:
       - init-db
   boca:
+    image: wuerges/boca
     ports:
       - 8000:80
     depends_on:
       - postgres
     build:
+      dockerfile: boca.Dockerfile
+      context: .
+  autojudge:
+    image: wuerges/boca-autojudge
+    depends_on:
+      - postgres
+    build:
+      dockerfile: autojudge.Dockerfile
       context: .
   postgres:
     image: postgres:16
